@@ -52,5 +52,9 @@ contract MultiSend is Ownable {
     function calculateFee(uint256 amount) internal pure returns(uint256){
       return (amount * 1000) / 1e5; // 1% of amount with 1e5 precision
     }
+    
+    function getETHAddress() external pure returns(address) {
+      return ETH_ADDRESS;
+    }
 
 }

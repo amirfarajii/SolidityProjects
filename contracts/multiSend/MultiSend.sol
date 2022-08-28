@@ -24,13 +24,18 @@ contract MultiSend is Ownable {
         uint256 totalWithFee = totalAmount + fee;
 
         if(token_ == ETH_ADDRESS) {
-          require(totalWithFee == msg.value, "Invalid amount to send");
+          require(totalWithFee <= msg.value, "Invalid amount to send");
           //send fee to owner
+          
           payable(owner()).sendValue(fee);
           for(uint256 i=0; i < recipient.length; i++) {
             require(recipient[i] != address(0), "don't send to Zero address");
             recipient[i].sendValue(amount);
             
+          }
+          uint256 returnToSender  = msg.value - totalWithFee;
+          if(returnToSender > 0){
+            payable(msg.sender).sendValue(returnToSender);
           }
           return true;
         } else {

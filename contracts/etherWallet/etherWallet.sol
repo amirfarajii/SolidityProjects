@@ -9,7 +9,7 @@ contract EtherWallet is Ownable {
     event Deposit(address indexed sender, uint256 amount);
     event Withdraw(address indexed recipient, uint256 amount);
     using Address for *;
-
+    //just owner of contract can withdraw founds
     function withdraw(address recipient, uint256 amount)
         external
         onlyOwner
